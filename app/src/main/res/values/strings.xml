@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Professional Organizer</string>
+    <string name="surname">фамилия:</string>
+    <string name="name">имя:</string>
+    <string name="middle_name">отчество:</string>
+    <string name="birth_date">дата рождения:</string>
+    <string name="profession">специальность:</string>
+</resources>
