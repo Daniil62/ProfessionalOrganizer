@@ -28,7 +28,7 @@ public class Specialist {
     String getSurname() {
         return this.surname;
     }
-    public String getBirthDate() {
+    String getBirthDate() {
         return this.birthDate;
     }
     Profession getProfession() {
