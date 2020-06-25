@@ -1,0 +1,2 @@
+# ProfessionalOrganizer.
+*Учебный прототип проекта.*
