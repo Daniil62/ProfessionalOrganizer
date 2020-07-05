@@ -1,20 +1,17 @@
 package ru.job4j.professional_organizer;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import ru.job4j.professional_organizer.store.SpecialistStore;
-
 public class ProfileFragment extends Fragment {
-    private int id;
-    public static ProfileFragment of(int index) {
+    static ProfileFragment of(int index) {
         ProfileFragment pf = new ProfileFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(ProfileActivity.PROFILE_FOR, index);
@@ -33,9 +30,7 @@ public class ProfileFragment extends Fragment {
         TextView surnameText = view.findViewById(R.id.surname_text);
         TextView dateText = view.findViewById(R.id.birth_date_text);
         TextView professionText = view.findViewById(R.id.profession_text);
-        this.id = getActivity().getIntent().getIntExtra("id", 0);
-        SpecialistsFragment sf = new SpecialistsFragment();
-        Specialist specialist = sf.getList().get(id);
+        Specialist specialist = SpecialistsFragment.getList().get(SpecialAdapter.getId());
         if (specialist != null) {
             photo.setImageResource(specialist.getPhotoId());
             nameText.setText(specialist.getName());
