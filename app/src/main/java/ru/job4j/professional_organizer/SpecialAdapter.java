@@ -17,6 +17,7 @@ public class SpecialAdapter extends RecyclerView.Adapter<SpecialAdapter.SpecialH
     public static void setId(int value) {
         id = value;
     }
+
     SpecialAdapter(SpecialistsFragment.SpecSelect select) {
         this.select = select;
     }
