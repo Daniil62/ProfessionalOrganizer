@@ -11,7 +11,7 @@ public abstract class ProfileActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.host_fragment);
+        setContentView(R.layout.host_profile_frg);
         FragmentManager fm = getSupportFragmentManager();
         if (fm.findFragmentById(R.id.content) == null) {
             fm.beginTransaction()

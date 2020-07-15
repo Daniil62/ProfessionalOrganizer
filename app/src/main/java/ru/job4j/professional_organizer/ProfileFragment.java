@@ -23,8 +23,6 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.specialist_profile, container, false);
-        getActivity();
-        setRetainInstance(true);
         ImageView photo = view.findViewById(R.id.imageView);
         TextView nameText = view.findViewById(R.id.name_text);
         TextView surnameText = view.findViewById(R.id.surname_text);
