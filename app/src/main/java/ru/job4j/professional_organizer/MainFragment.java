@@ -29,8 +29,6 @@ public class MainFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_main, container, false);
-        getActivity();
-        setRetainInstance(true);
         recycler = view.findViewById(R.id.professionsRecycler);
         recycler.setLayoutManager(new LinearLayoutManager(getContext()));
         this.ps = new ProfessionStore();

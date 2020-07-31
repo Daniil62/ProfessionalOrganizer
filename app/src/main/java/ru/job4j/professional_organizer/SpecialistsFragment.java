@@ -55,8 +55,6 @@ public class SpecialistsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.menu_specialist, container, false);
-        getActivity();
-        setRetainInstance(true);
         this.code = Objects.requireNonNull(getActivity()).getIntent().getIntExtra("code", 0);
         RecyclerView recycler = view.findViewById(R.id.specialistsRecycler);
         recycler.setLayoutManager(new LinearLayoutManager(getContext()));
