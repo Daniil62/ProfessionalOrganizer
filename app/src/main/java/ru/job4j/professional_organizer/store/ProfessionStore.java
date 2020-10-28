@@ -5,13 +5,12 @@ import ru.job4j.professional_organizer.Profession;
 
 public class ProfessionStore {
     private List<Profession> profStore = Arrays.asList(
-            new Profession("Гитарист", 0),
-            new Profession("Басист", 1),
-            new Profession("Ударник", 2),
-            new Profession("Вокалист", 3),
-            new Profession("Гитарист-вокалист", 4),
-            new Profession("Басист-вокалист", 5));
-
+            new Profession("Гитарист", 1),
+            new Profession("Басист", 2),
+            new Profession("Ударник", 3),
+            new Profession("Вокалист", 4),
+            new Profession("Гитарист-вокалист", 5),
+            new Profession("Басист-вокалист", 6));
     public List<Profession> getProfStore() {
         return profStore;
     }

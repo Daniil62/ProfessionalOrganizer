@@ -2,7 +2,6 @@ package ru.job4j.professional_organizer.store;
 
 import java.util.Arrays;
 import java.util.List;
-
 import ru.job4j.professional_organizer.R;
 import ru.job4j.professional_organizer.Specialist;
 
@@ -27,8 +26,5 @@ public class SpecialistStore {
                     "06.06.1961", profStore.get(5), R.drawable.tom_araya));
     public List<Specialist> getSpecStore() {
         return this.specStore;
-    }
-    public Specialist get(int index) {
-        return specStore.get(index);
     }
 }

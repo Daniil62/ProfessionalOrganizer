@@ -4,7 +4,7 @@ import android.content.Intent;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-public class SpecialistsActivator extends MainActivity implements SpecialistsFragment.SpecSelect {
+public class SpecialistsActivator extends SpecialistsActivity implements SpecialistsFragment.SpecSelect {
     @Override
     public Fragment loadFrg() {
         return new SpecialistsFragment();

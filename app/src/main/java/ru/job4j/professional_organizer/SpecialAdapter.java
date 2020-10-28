@@ -17,7 +17,6 @@ public class SpecialAdapter extends RecyclerView.Adapter<SpecialAdapter.SpecialH
     public static void setId(int value) {
         id = value;
     }
-
     SpecialAdapter(SpecialistsFragment.SpecSelect select) {
         this.select = select;
     }
@@ -25,11 +24,14 @@ public class SpecialAdapter extends RecyclerView.Adapter<SpecialAdapter.SpecialH
     @Override
     public SpecialHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         return new SpecialHolder(LayoutInflater.from(viewGroup.getContext()).
-                inflate(R.layout.specialist_module, viewGroup, false), select);
+                inflate(R.layout.specialist_module, viewGroup, false));
     }
     @Override
     public void onBindViewHolder(@NonNull SpecialHolder holder, int i) {
         holder.bind(SpecialistsFragment.getList().get(i), i);
+        holder.itemView.setId(i);
+        holder.itemView.setOnClickListener(v -> {SpecialAdapter.setId(holder.itemView.getId());
+            select.selected(SpecialAdapter.getId());});
     }
     @Override
     public int getItemCount() {
@@ -39,10 +41,8 @@ public class SpecialAdapter extends RecyclerView.Adapter<SpecialAdapter.SpecialH
         private final TextView nameText;
         private final TextView surnameText;
         private final ImageView photo;
-        private final SpecialistsFragment.SpecSelect select;
-        SpecialHolder(@NonNull View itemView, SpecialistsFragment.SpecSelect select) {
+        SpecialHolder(@NonNull View itemView) {
             super(itemView);
-            this.select = select;
             nameText = itemView.findViewById(R.id.previewName);
             surnameText = itemView.findViewById(R.id.previewSurname);
             photo = itemView.findViewById(R.id.previewPhoto);
@@ -54,13 +54,6 @@ public class SpecialAdapter extends RecyclerView.Adapter<SpecialAdapter.SpecialH
             nameText.setId(i);
             surnameText.setId(i);
             photo.setId(i);
-            nameText.setOnClickListener(this::click);
-            surnameText.setOnClickListener(this::click);
-            photo.setOnClickListener(this::click);
-        }
-        private void click(View view) {
-            SpecialAdapter.setId(view.getId());
-            select.selected(SpecialAdapter.getId());
         }
     }
 }

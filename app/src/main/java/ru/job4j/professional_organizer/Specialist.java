@@ -41,9 +41,15 @@ public class Specialist {
     public int hashCode() {
         return super.hashCode();
     }
-
     @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
+    public boolean equals(Object o) {
+        boolean result = false;
+        Specialist s = (Specialist) o;
+        if (o != null && this.name.equals(s.name) && this.surname.equals(s.surname)
+                && this.birthDate.equals(s.birthDate)
+                && this.profession.getCode() == s.profession.getCode()) {
+            result = true;
+        }
+        return result;
     }
 }

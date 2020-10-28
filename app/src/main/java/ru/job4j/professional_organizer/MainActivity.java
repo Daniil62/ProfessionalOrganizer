@@ -11,11 +11,11 @@ public abstract class MainActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.host_fragment);
+        setContentView(R.layout.main_host);
         FragmentManager fm = getSupportFragmentManager();
-        if (fm.findFragmentById(R.id.content) == null) {
+        if (fm.findFragmentById(R.id.main_host) == null) {
             fm.beginTransaction()
-                    .add(R.id.content, loadFrg())
+                    .add(R.id.main_host, loadFrg())
                     .commit();
         }
     }

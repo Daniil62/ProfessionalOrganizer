@@ -17,6 +17,7 @@ import ru.job4j.professional_organizer.store.ProfessionStore;
 public class MainFragment extends Fragment {
     private RecyclerView recycler;
     private ProfessionStore ps;
+    private ProfessionDbHelper helper;
     static MainFragment of(int index) {
         MainFragment mf = new MainFragment();
         Bundle bundle = new Bundle();
@@ -32,6 +33,8 @@ public class MainFragment extends Fragment {
         recycler = view.findViewById(R.id.professionsRecycler);
         recycler.setLayoutManager(new LinearLayoutManager(getContext()));
         this.ps = new ProfessionStore();
+        this.helper = new ProfessionDbHelper(getContext());
+        helper.loadProfessions(ps.getProfStore());
         updateUI();
         return view;
     }
@@ -43,7 +46,7 @@ public class MainFragment extends Fragment {
         }
     }
     private void updateUI() {
-        this.recycler.setAdapter(new ProfessionAdapter(ps.getProfStore()));
+        this.recycler.setAdapter(new ProfessionAdapter(helper.getProfessions()));
     }
     public class ProfessionAdapter extends RecyclerView.Adapter<ProfessionHolder> {
         private final List<Profession> professions;
@@ -63,7 +66,8 @@ public class MainFragment extends Fragment {
             TextView profession = holder.view.findViewById(R.id.profession);
             profession.setText(p.getTitle());
             profession.setId(p.getCode());
-            profession.setOnClickListener(v -> {
+            holder.view.setId(p.getCode());
+            holder.view.setOnClickListener(v -> {
                 Intent intent = new Intent(getActivity(), SpecialistsActivator.class);
                 intent.putExtra("code", v.getId());
                 startActivity(intent);

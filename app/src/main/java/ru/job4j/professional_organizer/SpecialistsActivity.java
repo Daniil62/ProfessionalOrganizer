@@ -6,7 +6,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
 public abstract class SpecialistsActivity extends FragmentActivity {
-    public static final String SPECIALISTS_FOR = "specialists_for";
     public abstract Fragment loadFrg();
     @Override
     protected void onCreate(Bundle savedInstanceState) {

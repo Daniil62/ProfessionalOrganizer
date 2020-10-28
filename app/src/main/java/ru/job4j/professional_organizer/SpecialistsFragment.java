@@ -16,32 +16,16 @@ import java.util.Objects;
 import ru.job4j.professional_organizer.store.SpecialistStore;
 
 public class SpecialistsFragment extends Fragment {
-    private int code;
     private static List<Specialist> list;
     static List<Specialist> getList() {
         return list;
-    }
-    public static SpecialistsFragment of(int index) {
-        SpecialistsFragment sf = new SpecialistsFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt(SpecialistsActivity.SPECIALISTS_FOR, index);
-        sf.setArguments(bundle);
-        return sf;
-    }
-    private void updateUI() {
-        SpecialistStore sStore = new SpecialistStore();
-        for (Specialist s : sStore.getSpecStore()) {
-            if (s.getProfession().getCode() == this.code) {
-                list.add(s);
-            }
-        }
     }
     public interface SpecSelect {
         void selected(int index);
     }
     private SpecSelect select;
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.select = (SpecSelect) context;
     }
@@ -55,13 +39,17 @@ public class SpecialistsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.menu_specialist, container, false);
-        this.code = Objects.requireNonNull(getActivity()).getIntent().getIntExtra("code", 0);
+        int code = Objects.requireNonNull(
+                getActivity()).getIntent().getIntExtra("code", 0);
+        ProfessionDbHelper helper = new ProfessionDbHelper(getContext());
+        SpecialistStore specialistStore = new SpecialistStore();
         RecyclerView recycler = view.findViewById(R.id.specialistsRecycler);
         recycler.setLayoutManager(new LinearLayoutManager(getContext()));
         RecyclerView.Adapter adapter = new SpecialAdapter(select);
         recycler.setAdapter(adapter);
         list = new ArrayList<>();
-        updateUI();
+        helper.loadSpecialists(specialistStore.getSpecStore());
+        list = helper.getSpecialists(code);
         return view;
     }
 }
