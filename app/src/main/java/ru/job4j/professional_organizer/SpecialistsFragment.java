@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import ru.job4j.professional_organizer.models.Specialist;
+import ru.job4j.professional_organizer.store.ProfessionDbHelper;
 import ru.job4j.professional_organizer.store.SpecialistStore;
 
 public class SpecialistsFragment extends Fragment {

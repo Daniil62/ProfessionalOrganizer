@@ -1,4 +1,6 @@
-package ru.job4j.professional_organizer;
+package ru.job4j.professional_organizer.models;
+
+import ru.job4j.professional_organizer.R;
 
 public class Specialist {
     private String name;
@@ -22,19 +24,19 @@ public class Specialist {
         this.profession = profession;
         this.photoId = R.drawable.default_photo;
     }
-    String getName() {
+    public String getName() {
         return this.name;
     }
-    String getSurname() {
+    public String getSurname() {
         return this.surname;
     }
-    String getBirthDate() {
+    public String getBirthDate() {
         return this.birthDate;
     }
-    Profession getProfession() {
+    public Profession getProfession() {
         return this.profession;
     }
-    int getPhotoId() {
+    public int getPhotoId() {
         return this.photoId;
     }
     @Override

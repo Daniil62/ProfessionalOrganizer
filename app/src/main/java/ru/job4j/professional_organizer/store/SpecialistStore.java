@@ -3,7 +3,7 @@ package ru.job4j.professional_organizer.store;
 import java.util.Arrays;
 import java.util.List;
 import ru.job4j.professional_organizer.R;
-import ru.job4j.professional_organizer.Specialist;
+import ru.job4j.professional_organizer.models.Specialist;
 
 public class SpecialistStore {
     private ProfessionStore profStore = new ProfessionStore();

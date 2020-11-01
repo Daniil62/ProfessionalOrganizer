@@ -1,7 +1,8 @@
 package ru.job4j.professional_organizer.store;
+
 import java.util.Arrays;
 import java.util.List;
-import ru.job4j.professional_organizer.Profession;
+import ru.job4j.professional_organizer.models.Profession;
 
 public class ProfessionStore {
     private List<Profession> profStore = Arrays.asList(

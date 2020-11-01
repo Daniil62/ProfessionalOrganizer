@@ -1,4 +1,4 @@
-package ru.job4j.professional_organizer;
+package ru.job4j.professional_organizer.store;
 
 class ProfDbSchema {
     final static class ProfessionTable {

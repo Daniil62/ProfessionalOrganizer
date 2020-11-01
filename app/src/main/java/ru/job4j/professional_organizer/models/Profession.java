@@ -1,4 +1,4 @@
-package ru.job4j.professional_organizer;
+package ru.job4j.professional_organizer.models;
 
 public class Profession {
     private String title;
@@ -7,10 +7,10 @@ public class Profession {
         this.title = title;
         this.code = code;
     }
-    String getTitle() {
+    public String getTitle() {
         return this.title;
     }
-    int getCode() {
+    public int getCode() {
         return this.code;
     }
     @Override

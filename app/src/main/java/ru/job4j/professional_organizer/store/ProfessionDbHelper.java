@@ -1,4 +1,4 @@
-package ru.job4j.professional_organizer;
+package ru.job4j.professional_organizer.store;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,11 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
+import ru.job4j.professional_organizer.models.Profession;
+import ru.job4j.professional_organizer.models.Specialist;
 
 public class ProfessionDbHelper extends SQLiteOpenHelper {
     private static final String DB = "profession_organizer.db";
     private static final int VERSION = 1;
-    ProfessionDbHelper(Context context) {
+    public ProfessionDbHelper(Context context) {
         super (context, DB, null, VERSION);
     }
     @Override
@@ -36,7 +38,7 @@ public class ProfessionDbHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
-    void loadProfessions(List<Profession> store) {
+    public void loadProfessions(List<Profession> store) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         for (Profession p : store) {
@@ -45,7 +47,7 @@ public class ProfessionDbHelper extends SQLiteOpenHelper {
             db.insert(ProfDbSchema.ProfessionTable.TAB_NAME, null, values);
         }
     }
-    void loadSpecialists(List<Specialist> store) {
+    public void loadSpecialists(List<Specialist> store) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         for (Specialist s : store) {
@@ -107,7 +109,7 @@ public class ProfessionDbHelper extends SQLiteOpenHelper {
         cursor.close();
         return result;
     }
-    List<Profession> getProfessions() {
+    public List<Profession> getProfessions() {
         List<Profession> professions = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(ProfDbSchema.ProfessionTable.TAB_NAME, null,
@@ -122,7 +124,7 @@ public class ProfessionDbHelper extends SQLiteOpenHelper {
         cursor.close();
         return professions;
     }
-    List<Specialist> getSpecialists(int id) {
+    public List<Specialist> getSpecialists(int id) {
         List<Specialist> specialists = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(ProfDbSchema.SpecialistTable.TAB_NAME, null,

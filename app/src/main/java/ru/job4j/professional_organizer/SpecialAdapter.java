@@ -2,6 +2,7 @@ package ru.job4j.professional_organizer;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import ru.job4j.professional_organizer.models.Specialist;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
