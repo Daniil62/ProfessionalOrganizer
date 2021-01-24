@@ -35,7 +35,7 @@ public class ProfileFragment extends Fragment {
             nameText.setText(specialist.getName());
             surnameText.setText(specialist.getSurname());
             dateText.setText(specialist.getBirthDate());
-            professionText.setText(specialist.getProfession().getTitle());
+            professionText.setText(specialist.getProfession().get(0).getName());
         }
         return view;
     }

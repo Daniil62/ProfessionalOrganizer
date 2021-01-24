@@ -47,7 +47,7 @@ public class SpecialistsFragment extends Fragment {
         SpecialistStore specialistStore = new SpecialistStore();
         RecyclerView recycler = view.findViewById(R.id.specialistsRecycler);
         recycler.setLayoutManager(new LinearLayoutManager(getContext()));
-        RecyclerView.Adapter adapter = new SpecialAdapter(select);
+        SpecialAdapter adapter = new SpecialAdapter(select);
         recycler.setAdapter(adapter);
         list = new ArrayList<>();
         helper.loadSpecialists(specialistStore.getSpecStore());

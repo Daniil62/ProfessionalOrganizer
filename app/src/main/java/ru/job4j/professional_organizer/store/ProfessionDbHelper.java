@@ -6,7 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import ru.job4j.professional_organizer.models.Profession;
 import ru.job4j.professional_organizer.models.Specialist;
 
@@ -42,7 +44,7 @@ public class ProfessionDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         for (Profession p : store) {
-            values.put(ProfDbSchema.ProfessionTable.Cols.TITLE, p.getTitle());
+            values.put(ProfDbSchema.ProfessionTable.Cols.TITLE, p.getName());
             values.put(ProfDbSchema.ProfessionTable.Cols.CODE, p.getCode());
             db.insert(ProfDbSchema.ProfessionTable.TAB_NAME, null, values);
         }
@@ -55,9 +57,11 @@ public class ProfessionDbHelper extends SQLiteOpenHelper {
                 values.put(ProfDbSchema.SpecialistTable.Cols.NAME, s.getName());
                 values.put(ProfDbSchema.SpecialistTable.Cols.SURNAME, s.getSurname());
                 values.put(ProfDbSchema.SpecialistTable.Cols.BIRTH_DATE, s.getBirthDate());
-                values.put(ProfDbSchema.SpecialistTable.Cols.PROF_CODE, s.getProfession().getCode());
                 values.put(ProfDbSchema.SpecialistTable.Cols.PHOTO_ID, s.getPhotoId());
-                db.insert(ProfDbSchema.SpecialistTable.TAB_NAME, null, values);
+                for (Profession p : s.getProfession()) {
+                    values.put(ProfDbSchema.SpecialistTable.Cols.PROF_CODE, p.getCode());
+                    db.insert(ProfDbSchema.SpecialistTable.TAB_NAME, null, values);
+                }
             }
         }
     }
@@ -74,10 +78,10 @@ public class ProfessionDbHelper extends SQLiteOpenHelper {
                     ProfDbSchema.SpecialistTable.Cols.SURNAME));
             String birthDate = cursor.getString(cursor.getColumnIndex(
                     ProfDbSchema.SpecialistTable.Cols.BIRTH_DATE));
-            Profession profession = this.getProfession(specialist.getProfession().getCode());
             int photo = cursor.getInt(cursor.getColumnIndex(
                     ProfDbSchema.SpecialistTable.Cols.PHOTO_ID));
-            Specialist s = new Specialist(name, surname, birthDate, profession, photo);
+            List<Profession> professions = new ArrayList<>();
+            Specialist s = new Specialist(name, surname, birthDate, professions, photo);
             if (specialist.equals(s)) {
                 result = true;
                 break;
@@ -88,23 +92,22 @@ public class ProfessionDbHelper extends SQLiteOpenHelper {
         cursor.close();
         return result;
     }
-    private Profession getProfession(int id) {
-        Profession result = new Profession("", 0);
+    private List<Profession> getProfession(int code) {
+        List<Profession> result = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(ProfDbSchema.ProfessionTable.TAB_NAME, null,
-                ProfDbSchema.ProfessionTable.Cols.CODE+ " = " + id, null,
+                ProfDbSchema.ProfessionTable.Cols.CODE + " = " + code, null,
                 null, null, null);
         cursor.moveToFirst();
         while(!cursor.isAfterLast()) {
-            result = new Profession(cursor.getString(
-                    cursor.getColumnIndex(ProfDbSchema.ProfessionTable.Cols.TITLE)), cursor.getInt(
-                            cursor.getColumnIndex(ProfDbSchema.ProfessionTable.Cols.CODE)
-            ));
-            if (cursor.getInt(cursor.getColumnIndex(ProfDbSchema.ProfessionTable.Cols.CODE)) == id) {
-                break;
-            } else {
-                cursor.moveToNext();
+            String name = cursor.getString(
+                    cursor.getColumnIndex(ProfDbSchema.ProfessionTable.Cols.TITLE));
+            int id = cursor.getInt(cursor.getColumnIndex(ProfDbSchema.ProfessionTable.Cols.CODE));
+            Profession p = new Profession(name, id);
+            if (id == code) {
+                result.add(p);
             }
+            cursor.moveToNext();
         }
         cursor.close();
         return result;
@@ -124,15 +127,15 @@ public class ProfessionDbHelper extends SQLiteOpenHelper {
         cursor.close();
         return professions;
     }
-    public List<Specialist> getSpecialists(int id) {
+    public List<Specialist> getSpecialists(int code) {
         List<Specialist> specialists = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(ProfDbSchema.SpecialistTable.TAB_NAME, null,
-                ProfDbSchema.SpecialistTable.Cols.PROF_CODE + " = " + id,
+                null,
                 null, null, null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            if (id == cursor.getInt(cursor.getColumnIndex(
+            if (code == cursor.getInt(cursor.getColumnIndex(
                     ProfDbSchema.SpecialistTable.Cols.PROF_CODE))) {
                 specialists.add(new Specialist(cursor.getString(
                         cursor.getColumnIndex(
@@ -141,7 +144,7 @@ public class ProfessionDbHelper extends SQLiteOpenHelper {
                                 ProfDbSchema.SpecialistTable.Cols.SURNAME)),
                         cursor.getString(cursor.getColumnIndex(
                                 ProfDbSchema.SpecialistTable.Cols.BIRTH_DATE)),
-                        this.getProfession(id),
+                        this.getProfession(code),
                         cursor.getInt(cursor.getColumnIndex(
                                 ProfDbSchema.SpecialistTable.Cols.PHOTO_ID))));
             }
@@ -149,5 +152,20 @@ public class ProfessionDbHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return specialists;
+    }
+    public void createTablesFromItem(List<Specialist> list) {
+        Set<Profession> professions = new HashSet<>();
+        List<Specialist> specialists = new ArrayList<>();
+        Profession profession;
+        for (Specialist specialist : list) {
+            for (int i = 0; i < specialist.getProfession().size(); ++i) {
+                profession = specialist.getProfession().get(i);
+                professions.add(profession);
+            }
+            specialists.add(specialist);
+        }
+        List<Profession> profList = new ArrayList<>(professions);
+        loadProfessions(profList);
+        loadSpecialists(specialists);
     }
 }

@@ -5,7 +5,7 @@ import java.util.List;
 import ru.job4j.professional_organizer.models.Profession;
 
 public class ProfessionStore {
-    private List<Profession> profStore = Arrays.asList(
+    private final List<Profession> profStore = Arrays.asList(
             new Profession("Гитарист", 1),
             new Profession("Басист", 2),
             new Profession("Ударник", 3),

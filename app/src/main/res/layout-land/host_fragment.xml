@@ -4,11 +4,12 @@
     android:layout_height="match_parent"
     android:divider="?android:attr/dividerHorizontal"
     android:showDividers="middle"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:baselineAligned="false">
     <FrameLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="1.2"
         android:id="@+id/content">
     </FrameLayout>
     <FrameLayout

@@ -1,27 +1,40 @@
 package ru.job4j.professional_organizer.models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import java.util.List;
 import ru.job4j.professional_organizer.R;
 
 public class Specialist {
-    private String name;
-    private String surname;
-    private String birthDate;
-    private Profession profession;
-    private int photoId;
+    @SerializedName("f_name")
+    @Expose
+    private final String name;
+    @SerializedName("l_name")
+    @Expose
+    private final String surname;
+    @SerializedName("birthday")
+    @Expose
+    private final String birthDate;
+    @SerializedName("specialty")
+    @Expose
+    private final List<Profession> professions;
+    @SerializedName("avatr_url")
+    @Expose
+    private final int photoId;
     public Specialist(String name, String surname, String birthDate,
-                      Profession profession, int photoId) {
+                      List<Profession> professions, int photoId) {
         this.name = name;
         this.surname = surname;
         this.birthDate = birthDate;
-        this.profession = profession;
+        this.professions = professions;
         this.photoId = photoId;
     }
     public Specialist(String name, String surname, String birthDate,
-                      Profession profession) {
+                      List<Profession> professions) {
         this.name = name;
         this.surname = surname;
         this.birthDate = birthDate;
-        this.profession = profession;
+        this.professions = professions;
         this.photoId = R.drawable.default_photo;
     }
     public String getName() {
@@ -33,8 +46,8 @@ public class Specialist {
     public String getBirthDate() {
         return this.birthDate;
     }
-    public Profession getProfession() {
-        return this.profession;
+    public List<Profession> getProfession() {
+        return this.professions;
     }
     public int getPhotoId() {
         return this.photoId;
@@ -48,8 +61,7 @@ public class Specialist {
         boolean result = false;
         Specialist s = (Specialist) o;
         if (o != null && this.name.equals(s.name) && this.surname.equals(s.surname)
-                && this.birthDate.equals(s.birthDate)
-                && this.profession.getCode() == s.profession.getCode()) {
+                && this.birthDate.equals(s.birthDate)) {
             result = true;
         }
         return result;
